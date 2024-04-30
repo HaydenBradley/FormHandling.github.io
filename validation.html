@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Registration Form</title>
+<style>
+  .error {
+    color: red;
+  }
+</style>
+</head>
+<body>
+
+<h2>User Registration Form</h2>
+
+<form id="registrationForm">
+  <div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <span id="usernameError" class="error"></span>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <span id="emailError" class="error"></span>
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <span id="passwordError" class="error"></span>
+  </div>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    var username = document.getElementById('username').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var password = document.getElementById('password').value.trim();
+    var usernameError = document.getElementById('usernameError');
+    var emailError = document.getElementById('emailError');
+    var passwordError = document.getElementById('passwordError');
+
+
+    usernameError.textContent = '';
+    emailError.textContent = '';
+    passwordError.textContent = '';
+
+    if (username.length < 6) {
+      usernameError.textContent = 'Username must be at least 6 characters long.';
+      event.preventDefault(); 
+    }
+
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      emailError.textContent = 'Invalid email format.';
+      event.preventDefault(); 
+    }
+
+ 
+    var passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordPattern.test(password)) {
+      passwordError.textContent = 'Password must be at least 8 characters long and contain at least one capital letter and one number.';
+      event.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>
